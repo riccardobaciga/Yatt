@@ -1,0 +1,154 @@
+<html>
+<head>
+
+<title>Geolocation</title>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">    
+    
+    <script src='cordova.js'></script> 
+    <script type="text/javascript" src="lib/angular.js"></script> 
+    <script type="text/javascript" src="lib/jquery-2.1.4.min.js"></script> 
+    <script type="text/javascript" src="lib/modalBox-min.js"></script> 
+
+    <script type="text/javascript" src="js/main.js"></script> 
+    <script  rel="stylesheet" type="text/javascript" src="app/controller.js"></script> 
+        
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+    <link rel="stylesheet" media="all and (orientation:portrait)" href="css/portrait.css">
+    <link rel="stylesheet" media="all and (orientation:landscape)" href="css/landscape.css">
+    <link rel="stylesheet" type="text/css" href="css/modal.css"/>
+    <link rel="stylesheet" type="text/css" href="css/button.css"/>
+
+</head>
+<body ng-app="A">
+    <div class="divider" ng-controller="datiLoad">
+    <div class="titolo">
+        YaTa <sub>Yet Another Tracking App</sub>
+    </div>
+    <br>
+    <div class="prima">
+        <div class="cellaPrima label">{{speedLabel}}</div>
+        <div class="cellaPrima">{{howSpeed}}</div>
+    </div>
+    <div class="seconda">
+        <div class="cellaSeconda label">{{maxSpeedLabel}}</div>
+        <div class="cellaSeconda">{{maxSpeed}}</div>
+    </div>
+    <div class="seconda">
+        <div class="cellaSeconda label">{{avgSpeedLabel}}</div>
+        <div class="cellaSeconda">{{avgSpeed | number:2}}</div>
+    </div>
+    <hr/>
+    <div class="prima">
+        <div class="cellaPrima label">{{altitudeLabel}}</div>
+        <div class="cellaPrima">{{howHeight}}</div>
+    </div>
+    <div class="seconda">
+        <div class="cellaSeconda label">{{maxAltitudeLabel}}</div>
+        <div class="cellaSeconda">{{maxHeight}}</div>
+    </div>
+    <div class="seconda">
+        <div class="cellaSeconda label">{{upDownLabel}}</div>
+        <div class="cellaSeconda">{{avgSpeed | number:2}}</div>
+    </div>
+    <hr>
+    <div class="prima">
+        <div class="cellaPrima label">{{distanceLabel}}</div>
+        <div class="cellaPrima">{{howLong | number:2}}</div>
+    </div>
+    <div class="seconda">
+        <div class="cellaSeconda label">{{timeLabel}}</div>
+        <div class="cellaSeconda">{{whatTime}}</div>
+    </div>
+    <div class="seconda">
+        <div class="cellaSeconda label">{{elapsedLabel}}</div>
+        <div class="cellaSeconda">{{howTime}}</div>
+    </div>
+    <hr/>
+    <div class="bottoni">
+        <div class="bottone">
+            <section>
+                <a href="#" id="button" ng-click="startStop()">&#xF011;</a>
+                <span></span>
+            </section>
+        </div>
+        <div class="bottone">
+            <section>
+                <a href="#" id="buttonCamera" onclick="capturePhoto();">&#xF083;</a>
+            </section>
+        </div>
+        <div class="bottone">
+            <section>
+                <a href="#" class="buttonModal" data-modal-id="popPref" id="buttonPref">&#xF013;</a>
+                <span></span>
+            </section>
+        </div>
+    </div>
+ 
+        <!-- finestra modale per preferenze -->
+            <div id="popPref" class="modal-box">
+              <header> 
+                <h3>Preferenze</h3>
+              </header>
+              <div class="modal-body">
+                <p>Language <select name="languageValue" id="languageValue">
+                      <option value="it">Italiano</option>
+                      <option value="en">English</option>
+                    </select>
+                 </p>
+                 <p>User <input type="text" id="userName" name = "userName" value="{{userName}}" style="width:100%"></p>
+                <p>Server bookmarks <input type="text" id="serverBookmark" name = "serverBookmark" value="{{serverBookmark}}" style="width:100%"></p>
+                <p>Server segnalazioni <input type="text" id="serverAjax" name = "serverAjax" value="{{serverAjax}}" style="width:100%"></p>
+                <p>tempo scansione <select name="scanT" id="scanT">
+                      <option value="1000">1 sec</option>
+                      <option value="2000">2 sec</option>
+                      <option value="5000">5 sec</option>
+                      <option value="10000">10 sec</option>
+                      <option value="15000">15 sec</option>
+                      <option value="20000">20 sec</option>
+                      <option value="30000">30 sec</option>
+                      <option value="60000">1 min</option>
+                      <option value="120000">2 min</option>
+                      <option value="300000">5 min</option>
+                      <option value="600000">10 sec</option>
+                    </select>
+                  </p>
+                <p>tempo invio <select name="sendT" id="sendT">
+                      <option value="1000">1 sec</option>
+                      <option value="2000">2 sec</option>
+                      <option value="5000">5 sec</option>
+                      <option value="10000">10 sec</option>
+                      <option value="15000">15 sec</option>
+                      <option value="20000">20 sec</option>
+                      <option value="30000">30 sec</option>
+                      <option value="60000">1 min</option>
+                      <option value="120000">2 min</option>
+                      <option value="300000">5 min</option>
+                      <option value="600000">10 sec</option>
+                    </select>
+                  </p>
+              </div>
+              <footer> 
+                 <button class="btn btn-small js-modal-close" button-modal-id="buttonPref" ng-click="salvaServer(false)">Cancel</button>
+                 <button class="btn btn-small js-modal-close" button-modal-id="buttonPref" ng-click="salvaServer(true)">OK</button>
+              </footer>
+            </div>
+             <div id="popPhoto" class="modal-box">
+              <header> 
+                <h3>Invia foto e commento </h3>
+              </header>
+              <div class="modal-body" style="text-align:center">
+                <form method="post" enctype="multipart/form-data" id="image_upload_form">
+                    <input type="file" name="fileToUpload" id="fieldImageToSend" style="display: none;"/>
+                    <img id="imageToSend" src="" width="50%">
+                    <hr/>
+                    <input type="text" id="commentToSend" style="width:100%"/>
+                </form> 
+              <footer> 
+                 <button class="btn btn-small js-modal-close" button-modal-id="buttonCamera" ng-click="inviaFoto(false)">Cancel</button>
+                 <button class="btn btn-small js-modal-close" button-modal-id="buttonCamera" ng-click="inviaFoto(true)">Invia</button>
+              </footer>
+            </div>
+        
+    </div>
+</body>
+</html>

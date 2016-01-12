@@ -1,0 +1,22 @@
+.divider{
+    border: 0;
+    padding: 0; 
+}
+.prima {
+    width: 33%;
+    float:left;
+    padding-bottom: 3px;
+    text-align: center;
+}
+.seconda {
+    width: 33%;
+    float:left;
+    padding-bottom: 3px;
+    text-align: center;
+}
+.cella {
+    width: 100%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    text-align: center;
+}

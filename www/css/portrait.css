@@ -1,0 +1,22 @@
+.prima {
+    width: 100%;
+    float:left;
+    text-align: center;
+}
+.cellaPrima {
+    width: 50%;
+    float:left;
+    padding-bottom: 5px;
+    text-align: center;
+}
+.seconda {
+    width: 50%;
+    float:left;
+    padding-bottom: 5px;
+    text-align: center;
+}
+.cellaSeconda {
+    width: 100%;
+    padding-bottom: 5px;
+    text-align: center;
+}
